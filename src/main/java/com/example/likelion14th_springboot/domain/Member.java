@@ -29,6 +29,8 @@ public class Member {
 
     private Integer deposit; // 현재 계좌 잔액
 
+    private Integer age;
+
     @OneToMany(mappedBy = "seller", cascade = CascadeType.ALL)
     private Set<Product> products = new HashSet<>();
 
@@ -41,7 +43,7 @@ public class Member {
 
     @Builder
     public Member(String name, String address, String email, String phoneNumber,
-                  Role role, Boolean isAdmin, Integer deposit) {
+                  Role role, Boolean isAdmin, Integer deposit, Integer age) {
         this.name = name;
         this.address = address;
         this.email = email;
@@ -49,5 +51,6 @@ public class Member {
         this.role = role;
         this.isAdmin = isAdmin;
         this.deposit = deposit;
+        this.age = age;
     }
 }

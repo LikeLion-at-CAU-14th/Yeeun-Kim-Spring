@@ -28,4 +28,13 @@ public class MemberService {
     public Page<Member> getMembersByPage(int page, int size){
         return memberRepository.findAll(PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "id")));
     }
+
+    public Page<Member> getAdultMembersSortedByName(int age, int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        return memberRepository.findByAgeGreaterThanEqualOrderByNameAsc(age, pageRequest);
+    }
+
+    public List<Member> getMembersByNamePrefix(String prefix) {
+        return memberRepository.findByNameStartingWith(prefix);
+    }
 }

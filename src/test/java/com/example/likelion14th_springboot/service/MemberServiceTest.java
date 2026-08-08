@@ -48,6 +48,7 @@ public class MemberServiceTest {
                     .deposit(1000 * i)
                     .isAdmin(false)
                     .role(Role.BUYER)
+                    .age(i + 10)
                     .build();
 
             memberRepository.save(member);
@@ -91,5 +92,26 @@ public class MemberServiceTest {
         assertThat(page.getTotalElements()).isEqualTo(30);
         assertThat(page.getTotalPages()).isEqualTo(3);
         assertThat(page.getContent().get(0).getName()).isEqualTo("user30");
+    }
+
+    @Test
+    @DisplayName("이름이 주어진 값으로 시작하는 경우만 필터링")
+    void testGetMembersByNamePrefix() {
+        String prefix = "user";
+        List<Member> members = memberService.getMembersByNamePrefix(prefix);
+
+        assertThat(members).allMatch(member -> member.getName().startsWith(prefix));
+    }
+
+    @Test
+    @DisplayName("나이가 20 이상이고 이름 기준 오름차순 정렬된 페이징 결과 반환")
+    void testGetAdultMembersSortedByName() {
+        int age = 20;
+        int page = 0;
+        int size = 10;
+
+        Page<Member> result = memberService.getAdultMembersSortedByName(age, page, size);
+
+        assertThat(result.getContent()).allMatch(member -> member.getAge() >= 20);
     }
 }
