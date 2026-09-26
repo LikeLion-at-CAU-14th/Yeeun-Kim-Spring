@@ -35,7 +35,14 @@ public class Product extends BaseTimeEntity {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<ProductOrders> productOrders;
 
-    public void reduceStock(int amount){
+    public void reduceStock(int amount) {
         this.stock -= amount;
+    }
+
+    public void update(String name, Integer price, Integer stock, String description) {
+        this.name = name;
+        this.price = price;
+        this.stock = stock;
+        this.description = description;
     }
 }
