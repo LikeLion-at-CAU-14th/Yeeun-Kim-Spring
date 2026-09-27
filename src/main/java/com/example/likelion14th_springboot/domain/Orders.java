@@ -25,7 +25,7 @@ public class Orders extends BaseTimeEntity {
     private DeliverStatus deliverStatus; // 배송상태
 
     @ManyToOne
-    @JoinColumn(name ="buyer_id")
+    @JoinColumn(name = "buyer_id")
     private Member buyer;
 
     @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL)
@@ -33,5 +33,23 @@ public class Orders extends BaseTimeEntity {
 
     @OneToOne(mappedBy = "orders", cascade = CascadeType.ALL)
     private Coupon coupon;
+
+    @Embedded
+    private ShippingAddress shippingAddress;
+
+    @Builder.Default
+    private Boolean deleted = false;
+
+    public void updateShippingAddress(ShippingAddress shippingAddress) {
+        this.shippingAddress = shippingAddress;
+    }
+
+    public void updateDeliverStatus(DeliverStatus deliverStatus) {
+        this.deliverStatus = deliverStatus;
+    }
+
+    public void softDelete() {
+        this.deleted = true;
+    }
 }
 
