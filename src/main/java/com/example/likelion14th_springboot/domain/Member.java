@@ -6,7 +6,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -34,9 +35,10 @@ public class Member {
     @OneToMany(mappedBy = "seller", cascade = CascadeType.ALL)
     private Set<Product> products = new HashSet<>();
 
-    public void chargeDeposit(int money){
+    public void chargeDeposit(int money) {
         this.deposit += money;
     }
+
     public void useDeposit(int money) {
         this.deposit -= money;
     }
@@ -52,5 +54,9 @@ public class Member {
         this.isAdmin = isAdmin;
         this.deposit = deposit;
         this.age = age;
+    }
+
+    public boolean isSeller() {
+        return Role.SELLER.equals(this.role);
     }
 }
