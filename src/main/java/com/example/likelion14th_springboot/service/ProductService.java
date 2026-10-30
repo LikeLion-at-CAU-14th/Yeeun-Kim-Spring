@@ -93,4 +93,15 @@ public class ProductService {
         // 4. DB에서 상품 완전 삭제
         productRepository.delete(product);
     }
+
+    @Transactional(readOnly = true)
+    public List<Product> getMyProducts(String username) {
+
+        Member member = memberRepository.findByName(username)
+                .orElseThrow(() ->
+                        new IllegalArgumentException("회원이 존재하지 않습니다.")
+                );
+
+        return productRepository.findAllBySeller(member);
+    }
 }
