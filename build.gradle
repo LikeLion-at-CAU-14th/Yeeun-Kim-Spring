@@ -35,6 +35,9 @@ dependencies {
     // h2 추가
     runtimeOnly 'com.h2database:h2'
 
+    // mysql 추가
+    runtimeOnly 'com.mysql:mysql-connector-j'
+
     //jpa 쿼리파라미터 확인
     implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:2.0.1'
 

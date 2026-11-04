@@ -20,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
+@ActiveProfiles("test")
 @TestConstructor(autowireMode = AutowireMode.ALL) // 생성자 주입용
 public class MemberServiceTest {
 

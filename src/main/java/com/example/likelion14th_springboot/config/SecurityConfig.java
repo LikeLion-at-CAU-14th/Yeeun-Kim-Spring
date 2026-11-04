@@ -43,7 +43,7 @@ public class SecurityConfig {
                         // --------------------- 여기부터 ------------------------
                         .requestMatchers("/join", "/login",
                                 "/oauth2/**", "/login/oauth2/**",
-                                "/h2-console/**", "/error").permitAll()
+                                "/h2-console/**", "/error", "/api/health").permitAll()
                         .anyRequest().authenticated())
 //                .requestMatchers("/**").authenticated()) // 인증된 사용자만 허용
                 .oauth2Login(oauth -> oauth
