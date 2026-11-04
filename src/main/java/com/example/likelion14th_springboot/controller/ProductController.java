@@ -1,5 +1,6 @@
 package com.example.likelion14th_springboot.controller;
 
+import com.example.likelion14th_springboot.domain.Product;
 import com.example.likelion14th_springboot.dto.request.ProductCreateRequestDto;
 import com.example.likelion14th_springboot.dto.request.ProductDeleteRequestDto;
 import com.example.likelion14th_springboot.dto.request.ProductUpdateRequestDto;
@@ -7,6 +8,7 @@ import com.example.likelion14th_springboot.dto.response.ProductResponseDto;
 import com.example.likelion14th_springboot.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -49,5 +51,18 @@ public class ProductController {
                                                 @RequestBody ProductDeleteRequestDto dto) {
         productService.deleteProduct(id, dto);
         return ResponseEntity.ok("상품이 성공적으로 삭제되었습니다.");
+    }
+
+    @GetMapping("/my")
+    public ResponseEntity<List<Product>> getMyProducts(
+            Authentication authentication
+    ) {
+        String username = authentication.getName();
+
+        System.out.println("현재 로그인한 사용자: " + username);
+
+        List<Product> products = productService.getMyProducts(username);
+
+        return ResponseEntity.ok(products);
     }
 }
